@@ -14,5 +14,11 @@ module t();
     parameter reg   [7:0]   reg_8_param     = 200;
     parameter time          time_param      = 10000000000;
 
-    initial $display("Hello, I am int_param_check");
+    initial begin
+        $display("---\nHello:   int_param_check\n");
+        
+        #10
+        $display("\nGoodbye: int_param_check\n---");
+    end
+
 endmodule;
