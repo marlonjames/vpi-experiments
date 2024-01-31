@@ -1,5 +1,16 @@
 # iverilog
 *.vpi
 
+#riviera
+*_lib/
+*.so
+library.cfg
+*.asdb
+
+#questa
+*_lib/
+*.so
+transcript
+
 # int_param_check
 int_param_check

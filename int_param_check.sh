@@ -7,16 +7,25 @@ run_iverilog() {
 }
 
 run_questa() {
-    echo "not implemented"
-    exit 1
+    gcc -shared -fPIC int_param_check.c -Wall -Werror -o int_param_check.so
+    vlib int_param_check_lib
+    vlog -work int_param_check_lib -sv int_param_check.sv
+    vsim -c +access -onfinish exit -pli int_param_check.so -lib int_param_check_lib t -do "run -all; quit"
 }
 
 run_riviera() {
+    gcc -shared -fPIC int_param_check.c -Wall -Werror -o int_param_check.so
+    vlib int_param_check_lib
+    vlog -work int_param_check_lib -pli int_param_check.so -sv int_param_check.sv
+    vsim -c +access -interceptcoutput -pli int_param_check.so -lib int_param_check_lib t -do "run -all; endsim"
+}
+
+run_verilator() {
     echo "not implemented"
     exit 1
 }
 
-run_verilator() {
+run_xcelium() {
     echo "not implemented"
     exit 1
 }
@@ -27,6 +36,9 @@ SIM=$1
 
 case "$SIM" in
     "iverilog") run_iverilog;;
-    "modelsim") run_modelsim;;
+    "questa") run_questa;;
+    "riviera") run_riviera;;
+    "verilator") run_verilator;;
+    "xcelium") run_xcelium;;
     *) echo "Invalid simulator '$SIM'"; exit 1;
 esac
