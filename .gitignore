@@ -12,6 +12,9 @@ library.cfg
 *.so
 transcript
 
+#verilator
+verilator_build/
+
 #xcelium
 xcelium.d/
 xrun.*

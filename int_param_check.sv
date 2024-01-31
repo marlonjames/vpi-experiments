@@ -1,7 +1,7 @@
 
 module t();
 
-    parameter bit [1]       bit_1_param     = 1;
+    parameter bit [0:0]     bit_1_param     = 1;
     parameter bit [1:0]     bit_2_param     = 3;
     parameter bit [599:0]   bit_600_param   = 600'ha364c9849f8298c66d659;
     parameter byte          byte_param      = 100;

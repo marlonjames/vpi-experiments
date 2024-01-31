@@ -295,3 +295,11 @@ void (*vlog_startup_routines[])() = {
     register_startup_callback,
     0
 };
+
+void vlog_startup_routines_bootstrap() {
+    void (*routine)();
+    int i;
+    for (i = 0, routine = vlog_startup_routines[i]; routine; routine = vlog_startup_routines[++i]) {
+        routine();
+    }
+}

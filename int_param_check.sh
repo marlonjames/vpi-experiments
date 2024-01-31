@@ -21,8 +21,10 @@ run_riviera() {
 }
 
 run_verilator() {
-    echo "Verilator not implemented"
-    exit 1
+    gcc -shared -fPIC int_param_check.c -Wall -Werror -o libvpi.so -DVERILATOR
+    verilator -cc --exe -Mdir verilator_build --top-module t --timing --vpi --public-flat-rw --prefix Vtop -o Vtop -LDFLAGS "-Wl,-rpath,$(pwd) -L$(pwd) -lvpi" int_param_check.sv verilator.cpp
+    make -C verilator_build -f Vtop.mk
+    verilator_build/Vtop
 }
 
 run_xcelium() {
