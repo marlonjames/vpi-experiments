@@ -21,12 +21,12 @@ run_riviera() {
 }
 
 run_verilator() {
-    echo "not implemented"
+    echo "Verilator not implemented"
     exit 1
 }
 
 run_xcelium() {
-    echo "not implemented"
+    echo "Xcelium not implemented"
     exit 1
 }
 
@@ -40,5 +40,6 @@ case "$SIM" in
     "riviera") run_riviera;;
     "verilator") run_verilator;;
     "xcelium") run_xcelium;;
-    *) echo "Invalid simulator '$SIM'"; exit 1;
+    "") echo "Supported simulators: iverilog questa riviera verilator xcelium"; exit 0;;
+    *) echo "Invalid simulator '$SIM'. Supported simulators: iverilog questa riviera verilator xcelium"; exit 1;;
 esac

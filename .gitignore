@@ -12,5 +12,10 @@ library.cfg
 *.so
 transcript
 
+#xcelium
+xcelium.d/
+xrun.*
+*.so
+
 # int_param_check
 int_param_check
