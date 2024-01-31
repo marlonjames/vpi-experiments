@@ -243,11 +243,16 @@ static void print_param_info(char *param_name) {
     PLI_INT32 const_type = vpi_get(vpiConstType, param_handle);
     PLI_INT32 size = vpi_get(vpiSize, param_handle);
 
-    vpi_printf("%-17s : vpiType = (% 3d) %-20s vpiConstType = (% 2d) %-17s size = %3d\n",
+    s_vpi_value value = {0};
+    value.format = vpiBinStrVal;
+    vpi_get_value(param_handle, &value);
+
+    vpi_printf("%-17s : vpiType = (% 3d) %-20s   vpiConstType = (% 2d) %-17s   size = %3d   vpiBinStrVal = %s\n",
         param_name,
         type, type_to_string(type),
         const_type, const_type_to_string(const_type),
-        size);
+        size,
+        value.value.str);
 
     return;
 }
@@ -265,7 +270,7 @@ static PLI_INT32 int_param_check(p_cb_data cb_data) {
     print_param_info("t.logic_130_param");
     print_param_info("t.reg_8_param");
     print_param_info("t.time_param");
-    
+
     return 0;
 }
 
@@ -284,7 +289,7 @@ static PLI_INT32 start_of_sim(p_cb_data cb_data_) {
 
 static void register_startup_callback() {
     s_cb_data cb_data = {0};
-    
+
     cb_data.reason = cbStartOfSimulation;
     cb_data.cb_rtn = start_of_sim;
 
