@@ -17,7 +17,7 @@ run_riviera() {
     gcc -shared -fPIC int_param_check.c -Wall -Werror -o int_param_check.so
     vlib int_param_check_lib
     vlog -work int_param_check_lib -pli int_param_check.so -sv int_param_check.sv
-    vsim -c +access -interceptcoutput -pli int_param_check.so -lib int_param_check_lib t -do "run -all; endsim"
+    vsim -c +access -interceptcoutput -pli int_param_check.so -lib int_param_check_lib t -do "run -all; endsim; quit"
 }
 
 run_verilator() {
@@ -28,8 +28,9 @@ run_verilator() {
 }
 
 run_xcelium() {
-    echo "Xcelium not implemented"
-    exit 1
+    mkdir -p build/xrun_snapshot
+    gcc -shared -fPIC int_param_check.c -Wall -Werror -o int_param_check.so
+    xrun -64bit -licqueue -clean -access +rwc -loadvpi "$(pwd)/int_param_check.so:vlog_startup_routines_bootstrap" -messages -status -gverbose -pliverbose -plidebug -plierr_verbose -work int_param_check_lib -top t int_param_check.sv
 }
 
 set -e
